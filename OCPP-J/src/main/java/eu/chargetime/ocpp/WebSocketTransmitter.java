@@ -92,6 +92,7 @@ public class WebSocketTransmitter implements Transmitter {
           @Override
           public void onOpen(ServerHandshake serverHandshake) {
             logger.debug("On connection open (HTTP status: {})", serverHandshake.getHttpStatus());
+            closed = false;
             events.connected();
           }
 
@@ -141,6 +142,7 @@ public class WebSocketTransmitter implements Transmitter {
       closed = false;
     } catch (Exception ex) {
       logger.warn("client.connectBlocking() failed", ex);
+      closed = true;
     }
   }
 
